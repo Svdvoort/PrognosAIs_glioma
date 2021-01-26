@@ -1,0 +1,223 @@
+evaluation:
+  combination_type: average
+  combine_patch_predictions: true
+  convert_one_hot: true
+  evaluate_metrics: false
+  evaluate_train_set: false
+  image_outputs: AUTO
+  metrics:
+    name: DICE
+    settings: null
+  patch_predictions: false
+  write_predictions: true
+general:
+  cluster_type: SLURM
+  custom_definitions_file: /DATA/custom_definitions.py
+  input_folder: /DATA/input
+  output_folder: /DATA/output
+model:
+  architecture:
+    N_epoch: 150
+    N_output: -1
+    batch_size: 1
+    dtype: float32
+    model_name: PSNET
+    settings:
+      convs: false
+      dense_units: 512
+      depth: 5
+      dropout: 0.25
+      filter_size: 9
+      final_conv_layers: 128
+      gap_after_dropout: true
+      global_pool: max
+      l2_norm: 1.0e-05
+      norm_layer: batch_sync
+      number_of_filters: 32
+      one_hot_output: true
+      output_type: softmax
+      stride_activation: relu
+      stride_size: 3
+      upsample_features: true
+  callbacks:
+    csv_logger:
+      name: CSVLogger
+      settings:
+        filename: log_{savename}.csv
+    early_stopping:
+      name: AverageEarlyStopping
+      settings:
+        average_fraction: 5
+        min_delta: 0.001
+        monitor: loss
+        patience: 7
+        restore_best_weights: true
+        verbose: 1
+    lr_reduction:
+      name: ReduceLROnPlateau
+      settings:
+        factor: 0.25
+        min_lr: 1.0e-11
+        monitor: loss
+        patience: 5
+        verbose: 1
+    model_checkpoint:
+      name: ModelCheckpoint
+      settings:
+        filepath: ModelCheckpoint
+        monitor: loss
+        save_best_only: true
+        save_weights_only: true
+        verbose: 1
+    nan_terminator:
+      name: TerminateOnNaN
+      settings: null
+  loss_weights:
+    1p19q: 3.38
+    Grade: 1.33
+    IDH: 2.26
+    MASK: 1
+  losses:
+    1p19q:
+      name: MaskedCategoricalCrossentropy
+      settings:
+        mask_value: -1
+    Grade:
+      name: MaskedCategoricalCrossentropy
+      settings:
+        mask_value: -1
+    IDH:
+      name: MaskedCategoricalCrossentropy
+      settings:
+        mask_value: -1
+    MASK:
+      name: DICE_loss
+      settings:
+        foreground_only: true
+        weighted: false
+  metrics:
+    1p19q:
+      AUC:
+        name: MaskedAUC
+        settings:
+          mask_value: -1
+      Sensitivity:
+        name: MaskedSensitivity
+        settings:
+          mask_value: -1
+      Specificity:
+        name: MaskedSpecificity
+        settings:
+          mask_value: -1
+    Grade:
+      name: MaskedAUC
+      settings:
+        mask_value: -1
+    IDH:
+      AUC:
+        name: MaskedAUC
+        settings:
+          mask_value: -1
+      Sensitivity:
+        name: MaskedSensitivity
+        settings:
+          mask_value: -1
+      Specificity:
+        name: MaskedSpecificity
+        settings:
+          mask_value: -1
+    MASK:
+      name: DICE
+      settings: null
+  optimizer:
+    name: AdamW
+    settings:
+      learning_rate: 1.0e-05
+      weight_decay: 1.0e-05
+original_location: /
+preprocessing:
+  bias_field_correcting:
+    mask_file: /DATA/Atlas_mask_HDBET.nii.gz
+    type: image
+  general:
+    mask_keyword: MASK
+    pipeline:
+    - multi_dimension_extracting
+    - bias_field_correcting
+    - normalizing
+    - masking
+    - saving
+    sample_type: nifti
+  labeling:
+    filter_missing: true
+    label_file: /DATA/labels_all.txt
+    make_one_hot: true
+    test_fraction: 0
+    train_fraction: 1.0
+    validation_fraction: 0.0
+  masking:
+    background_value: min
+    crop_to_mask: true
+    mask_background: true
+    mask_file: /DATA/Atlas_mask_HDBET.nii.gz
+    process_masks: true
+  multi_dimension_extracting:
+    extraction_type: first
+    max_number_of_dimensions: 3
+  normalizing:
+    mask_file: /DATA/Atlas_mask_HDBET.nii.gz
+    mask_normalization: collapse
+    mask_smoothing: true
+    normalization_method: zscore
+    normalization_range:
+    - 1
+    - 99
+    output_range:
+    - 0.01
+    - 1
+    type: image
+  patching:
+    extraction_type: overlap
+    overlap_fraction: 0.5
+    pad_constant: 0.0
+    pad_if_needed: true
+    patch_size:
+    - 90
+    - 90
+    - 90
+  rejecting:
+    rejection_limit: 0.03
+    type: patch
+  saving:
+    mask_channels: 2
+    type: image
+    use_mask_as_channel: false
+    use_mask_as_label: true
+training:
+  augmentation_factor: 2
+  augmentation_settings:
+    brightness_delta: 0.2
+    brightness_probability: 0.35
+    contrast_max_factor: 1.15
+    contrast_min_factor: 0.85
+    contrast_probability: 0.35
+    crop_probability: 0.35
+    crop_size:
+    - 20
+    - 20
+    - 20
+    max_rotate_angle: 30
+    rotate_probability: 0.35
+    to_rotate_axis:
+    - 0
+    - 1
+    - 2
+  cache_in_memory: AUTO
+  copy_files: false
+  data_augmentation: true
+  float16_epsilon: 0.0001
+  float_policy: AUTO
+  max_steps_per_epoch: -1
+  shuffle: true
+  use_class_weights: true
+  use_class_weights_in_losses: true
