@@ -1,20 +1,9 @@
 from PrognosAIs.Model.Architectures.UNet import Unet
-from PrognosAIs.Model.Architectures.ResNet import ResNet
-from tensorflow.keras.layers import SpatialDropout3D, Concatenate, BatchNormalization, GaussianDropout,GaussianNoise, Conv3D, MaxPooling3D, GlobalAveragePooling3D, Flatten, Dense, Activation, Conv2D, ReLU, Add, Conv3DTranspose, GlobalMaxPool3D
+from tensorflow.keras.layers import Concatenate, BatchNormalization, Conv3D, GlobalAveragePooling3D, Dense, Activation, ReLU, Conv3DTranspose, GlobalMaxPool3D
 from tensorflow.keras import Model, Input
 import tensorflow as tf
-from tensorflow import keras
-from tensorflow.python.ops import math_ops
-from tensorflow.python.framework import ops
-from tensorflow.keras.losses import CategoricalCrossentropy
-from tensorflow.python.framework import ops
-from tensorflow.python.keras.utils import losses_utils
-import copy
-import tensorflow
 import tensorflow_addons as tfa
-from tensorflow.python.keras.utils import metrics_utils
 import numpy as np
-from tensorflow.python.keras import backend as K
 import logging
 
 class PSNET_3D(Unet):
@@ -246,7 +235,7 @@ class AdamW(tfa.optimizers.AdamW):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-class AverageEarlyStopping(tensorflow.keras.callbacks.Callback):
+class AverageEarlyStopping(tf.keras.callbacks.Callback):
 
 
   def __init__(self,
