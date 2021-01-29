@@ -1,20 +1,20 @@
 evaluation:
-  combination_type: average
-  combine_patch_predictions: true
-  convert_one_hot: true
-  evaluate_metrics: false
-  evaluate_train_set: false
+  combination_type: vote
+  combine_patch_predictions: True
+  convert_one_hot: True
+  evaluate_metrics: False
+  evaluate_train_set: True
   image_outputs: AUTO
   metrics:
     name: DICE
     settings: null
-  patch_predictions: false
-  write_predictions: true
+  patch_predictions: False
+  write_predictions: True
 general:
   cluster_type: SLURM
-  custom_definitions_file: /DATA/custom_definitions.py
-  input_folder: /DATA/input
-  output_folder: /DATA/output
+  custom_definitions_file: /DATA/MODEL/custom_definitions.py
+  input_folder: /input
+  output_folder: /output
 model:
   architecture:
     N_epoch: 150
@@ -134,10 +134,9 @@ model:
     settings:
       learning_rate: 1.0e-05
       weight_decay: 1.0e-05
-original_location: /
 preprocessing:
   bias_field_correcting:
-    mask_file: /DATA/Atlas_mask_HDBET.nii.gz
+    mask_file: /DATA/ATLAS/brain_mask.nii.gz
     type: image
   general:
     mask_keyword: MASK
@@ -150,22 +149,22 @@ preprocessing:
     sample_type: nifti
   labeling:
     filter_missing: true
-    label_file: /DATA/labels_all.txt
+    label_file: /output/Predictions/labels.txt
     make_one_hot: true
-    test_fraction: 0
+    test_fraction: 0.0
     train_fraction: 1.0
     validation_fraction: 0.0
   masking:
     background_value: min
     crop_to_mask: true
     mask_background: true
-    mask_file: /DATA/Atlas_mask_HDBET.nii.gz
+    mask_file: /DATA/ATLAS/brain_mask.nii.gz
     process_masks: true
   multi_dimension_extracting:
     extraction_type: first
     max_number_of_dimensions: 3
   normalizing:
-    mask_file: /DATA/Atlas_mask_HDBET.nii.gz
+    mask_file: /DATA/ATLAS/brain_mask.nii.gz
     mask_normalization: collapse
     mask_smoothing: true
     normalization_method: zscore
@@ -192,7 +191,7 @@ preprocessing:
     mask_channels: 2
     type: image
     use_mask_as_channel: false
-    use_mask_as_label: true
+    use_mask_as_label: false
 training:
   augmentation_factor: 2
   augmentation_settings:
