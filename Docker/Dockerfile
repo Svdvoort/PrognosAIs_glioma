@@ -92,6 +92,12 @@ RUN pip3 install --no-cache-dir prognosais==0.2.5
 ## Set-up from repository
 ###############
 
+RUN apt-get update \
+    && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
+    git\
+    && rm -rf /var/lib/apt/lists/*
+
+
 
 RUN git clone https://github.com/Svdvoort/PrognosAIs_glioma.git \
     && cd PrognosAIs_glioma \
