@@ -86,7 +86,7 @@ RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
 
 # Install prognosais
 
-RUN pip3 install --no-cache-dir prognosais==0.2.5
+RUN pip3 install --no-cache-dir prognosais==0.2.7
 
 ###############
 ## Set-up from repository
@@ -96,7 +96,6 @@ RUN apt-get update \
     && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
     git\
     && rm -rf /var/lib/apt/lists/*
-
 
 
 RUN git clone https://github.com/Svdvoort/PrognosAIs_glioma.git \

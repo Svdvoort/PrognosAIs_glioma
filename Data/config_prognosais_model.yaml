@@ -191,7 +191,7 @@ preprocessing:
     mask_channels: 2
     type: image
     use_mask_as_channel: false
-    use_mask_as_label: true
+    use_mask_as_label: false
 training:
   augmentation_factor: 2
   augmentation_settings:
