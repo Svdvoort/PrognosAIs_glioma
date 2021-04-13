@@ -9,7 +9,7 @@ This repository contains the code and trained models required for the running of
 The model can be run using the pre-built Docker which contains all code and data needed to apply the model and will carry out all the required pre-processing.
 The docker can be run as follows: 
 
-`docker run -u $UID:$GROUPS -v "<local_input_folder>:/input/" -v "<local_output_folder>:/output/" svdvoort/prognosais-glioma:0.1`
+`docker run -u $UID:$GROUPS -v "<local_input_folder>:/input/" -v "<local_output_folder>:/output/" svdvoort/prognosais_glioma:1.0`
 
 Here `<local_input_folder>` needs to be replaced by the path to the folder on the host machine that contains the scans for the different subjects.
 `<local_output_folder` needs to be replaced by the folder on the host machine in which the results should be stored.
@@ -35,51 +35,29 @@ Thus an example of a structure for two subjects would be:
 |  |  T2.nii.gz
 ```
 
+The outputs of the model are then saved in `<local_output_folder>/Results`. A mask is stored for each patient as `<subjec_id>_mask.nii.gz` and the results of the genetic and histological feature predictions are all stored in `genetic_histological_predictions.csv`.
+
 ### Locally
 
 You can also evaluate the model by locally installing it. This requires you to do your own pre-processing according to the article: XXXX (link to follow later). 
-You can also check out the Docker file to check out the pre-processing steps. 
+The easiest way to set-up the pipeline locally is to follow the same steps as provided in [the docker file](https://github.com/Svdvoort/PrognosAIs_glioma/blob/master/Docker/Dockerfile). 
+You can then run [the pipeline script](https://github.com/Svdvoort/PrognosAIs_glioma/blob/master/Docker/run_pipeline.sh) to evaluate the model. 
 
-Evaluating the model locally requires the installation of Python 3.7 and the [PrognosAIs framework](https://github.com/Svdvoort/prognosais):
+This does require you to correct the paths in the `run_pipeline.sh` file to the correpsonding local paths and the paths in [the config file](https://github.com/Svdvoort/PrognosAIs_glioma/blob/master/Data/config_prognosais_model.yaml).
+
+## Model
+
+If you are just interested in the model it is available in the `Trained_models` folder. 
+
+The model is compressed unto a tar archive. To restore the model:
 
 ```
-python3 -m venv prognosais
-source prognosais
-pip install prognosais==0.2.5
-```
-
-Get the repository locally and extract the model: 
-
-```
-git clone https://github.com/Svdvoort/PrognosAIs_glioma
-cd PrognosAIs_glioma/Trained_models
+cd Trained_models
 cat prognosais_model.tar.gz.part* > prognosais_model.tar.gz
 tar -xzvf prognosais_model.tar.gz
 ```
 
-Create a local folder from which to run the model:
-
-```
-mkdir ~/prognosais
-cp -r prognosais_model/ ~/prognosais
-cp config_prognosais_model.yaml ~/prognosais
-cd ../Docker 
-cp custom_definitions.py ~/prognosais
-cp evaluate_model.py ~/prognosais
-cp get_predictions.py ~/prognosais
-cd ../Data
-cp brain_mask.nii.gz ~/prognosais
-```
-
-Now open the `config_prognosais_model.yaml` file and replace all /DATA/\*/ occurences by your home directory.
-Replace the /input/ and /output/ occurences by the paths to the input and output folder. 
-
-You can now run the model (on the pre-processed data) using:
-
-`python get_predictions.py ~/prognosais_model/ <input_folder> <output_folder> ~/config_prognosais_model.yaml`
-
-Where `<input_folder>` and `<output_folder>` have to be replaced by the input folder and output folder respectively.
-
+The model is now stored, in [TensorFlow SavedModel format](https://www.tensorflow.org/guide/saved_model), in `the prognosais_model` folder.
 
 
 
