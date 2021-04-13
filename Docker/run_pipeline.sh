@@ -10,7 +10,7 @@ ELASTIX_DATA_FOLDER=$DATA_FOLDER'/ELASTIX'
 MODEL_FOLDER=$DATA_FOLDER'/MODEL'
 
 registration_folder=$OUTPUT_FOLDER'/Registered'
-mkdir -p registration_folder
+mkdir -p $registration_folder
 
 for pat_dir in $INPUT_FOLDER/*
 do
@@ -48,8 +48,7 @@ mkdir -p $prediction_output_folder
 # echo $prediction_output_folder
 prognosais_model_folder=$MODEL_FOLDER'/prognosais_model'
 config_file=$MODEL_FOLDER'/config_prognosais_model.yaml'
-echo python /get_predictions.py $prognosais_model_folder $registration_folder $prediction_output_folder $config_file
-python /get_predictions.py $prognosais_model_folder $registration_folder $prediction_output_folder $config_file
+python3 /get_predictions.py $prognosais_model_folder $registration_folder $prediction_output_folder $config_file
 
 mv $prediction_output_folder/Results $OUTPUT_FOLDER
 rm -r $OUTPUT_FOLDER/PSNET*
