@@ -89,22 +89,27 @@ RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
 RUN pip3 install --no-cache-dir prognosais==0.2.5
 
 ###############
-## Add the required data
+## Set-up from repository
 ###############
 
-# Addd the mask for the atlas
-COPY brain_mask.nii.gz /DATA/ATLAS/
 
-# Now add the model and configs
-RUN mkdir -p /DATA/MODEL/
-COPY config_prognosais_model.yaml /DATA/MODEL/
-COPY custom_definitions.py /DATA/MODEL/
-COPY prognosais_model /DATA/MODEL/prognosais_model/
-
-COPY run_pipeline.sh /
-RUN chmod +x /run_pipeline.sh
-COPY get_predictions.py /
-COPY evaluate_model.py /
+RUN git clone https://github.com/Svdvoort/PrognosAIs_glioma.git \
+    && cd PrognosAIs_glioma \
+    && mv Data/brain_mask.nii.gz /DATA/ATLAS/ \
+    && mkdir -p /DATA/MODEL/ \
+    && mv Data/config_prognosais_model.yaml /DATA/MODEL/ \
+    && mv Scripts/custom_definitions.py /DATA/MODEL/\
+    && cd Trained_models \
+    && cat prognosais_model.tar.gz.part* > prognosais_model.tar.gz \
+    && tar -xzvf prognosais_model.tar.gz \
+    && cp -r prognosais_model/  /DATA/MODEL/prognosais_model/ \
+    && rm prognosais_model.tar.gz.part* \
+    && rm -r prognosais_model/ \
+    && cd .. \
+    && mv Docker/run_pipeline.sh / \
+    && chmod +x /run_pipeline.sh \
+    && mv Scripts/get_predictions.py / \
+    && mv Scripts/evaluate_model.py /
 
 ENTRYPOINT [ "/run_pipeline.sh" ]
 
