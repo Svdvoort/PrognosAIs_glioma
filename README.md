@@ -9,7 +9,7 @@ This repository contains the code and trained models required for the running of
 The model can be run using the pre-built Docker which contains all code and data needed to apply the model and will carry out all the required pre-processing.
 The docker can be run as follows: 
 
-`docker run -u $UID:$GROUPS -v "<local_input_folder>:/input/" -v "<local_output_folder>:/output/" svdvoort/prognosais_glioma:1.0.1`
+`docker run -u $UID:$GROUPS -v "<local_input_folder>:/input/" -v "<local_output_folder>:/output/" svdvoort/prognosais_glioma:1.0.2`
 
 Here `<local_input_folder>` needs to be replaced by the path to the folder on the host machine that contains the scans for the different subjects.
 `<local_output_folder` needs to be replaced by the folder on the host machine in which the results should be stored.
@@ -53,7 +53,6 @@ The model is compressed unto a tar archive. To restore the model:
 
 ```
 cd Trained_models
-cat prognosais_model.tar.gz.part* > prognosais_model.tar.gz
 tar -xzvf prognosais_model.tar.gz
 ```
 
