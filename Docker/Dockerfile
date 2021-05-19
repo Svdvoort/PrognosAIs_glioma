@@ -106,7 +106,7 @@ RUN git clone https://github.com/Svdvoort/PrognosAIs_glioma.git \
     && cd Trained_models \
     && tar -xzvf prognosais_model.tar.gz \
     && cp -r prognosais_model/  /DATA/MODEL/prognosais_model/ \
-    && rm prognosais_model.tar.gz.part* \
+    && rm prognosais_model.tar.gz \
     && rm -r prognosais_model/ \
     && cd .. \
     && mv Docker/run_pipeline.sh / \
