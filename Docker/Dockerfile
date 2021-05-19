@@ -104,7 +104,6 @@ RUN git clone https://github.com/Svdvoort/PrognosAIs_glioma.git \
     && mv Data/config_prognosais_model.yaml /DATA/MODEL/ \
     && mv Scripts/custom_definitions.py /DATA/MODEL/\
     && cd Trained_models \
-    && cat prognosais_model.tar.gz.part* > prognosais_model.tar.gz \
     && tar -xzvf prognosais_model.tar.gz \
     && cp -r prognosais_model/  /DATA/MODEL/prognosais_model/ \
     && rm prognosais_model.tar.gz.part* \
