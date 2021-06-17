@@ -39,11 +39,10 @@ The outputs of the model are then saved in `<local_output_folder>/Results`. A ma
 
 ### Locally
 
-You can also evaluate the model by locally installing it. This requires you to do your own pre-processing according to the article: XXXX (link to follow later). 
+You can also evaluate the model by locally installing it. This requires you to do your own pre-processing according to the article: [https://doi.org/10.1016/j.dib.2021.107191](https://doi.org/10.1016/j.dib.2021.107191). 
 The easiest way to set-up the pipeline locally is to follow the same steps as provided in [the docker file](https://github.com/Svdvoort/PrognosAIs_glioma/blob/master/Docker/Dockerfile). 
 You can then run [the pipeline script](https://github.com/Svdvoort/PrognosAIs_glioma/blob/master/Docker/run_pipeline.sh) to evaluate the model. 
 
-This does require you to correct the paths in the `run_pipeline.sh` file to the correpsonding local paths and the paths in [the config file](https://github.com/Svdvoort/PrognosAIs_glioma/blob/master/Data/config_prognosais_model.yaml).
 
 ## Model
 
