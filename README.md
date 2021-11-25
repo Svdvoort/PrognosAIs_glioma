@@ -12,7 +12,7 @@ The docker can be run as follows:
 `docker run -u $UID:$GROUPS -v "<local_input_folder>:/input/" -v "<local_output_folder>:/output/" svdvoort/prognosais_glioma:1.0.2`
 
 Here `<local_input_folder>` needs to be replaced by the path to the folder on the host machine that contains the scans for the different subjects.
-`<local_output_folder` needs to be replaced by the folder on the host machine in which the results should be stored.
+`<local_output_folder>` needs to be replaced by the folder on the host machine in which the results should be stored.
 
 
 `<local_input_folder>` should contain one folder per subject, with for each subject the NIFTI files for the pre-constrast T1-weighted scan, post-contrast T1-weighted scan, T2-weighted scan, and T2-weighted FLAIR scan named T1.nii.gz, T1GD.nii.gz, T2.nii.gz and FLAIR.nii.gz respectively.
