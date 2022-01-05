@@ -1,4 +1,4 @@
-Data_collection,Patient,IDH_mutated,Prediction_score_IDH_wildtype,Prediction_score_IDH_mutated,1p19q_codeleted,Prediction_score_1p19q_codeleted,Prediction_score_1p19q_intact,Grade,Prediction_score_grade_2,Prediction_score_grade_3,Prediction_score_grade_4
+Data_collection,Patient,IDH_mutated,Prediction_score_IDH_wildtype,Prediction_score_IDH_mutated,1p19q_codeleted,Prediction_score_1p19q_intact,Prediction_score_1p19q_codeleted,Grade,Prediction_score_grade_2,Prediction_score_grade_3,Prediction_score_grade_4
 TCGA-GBM,TCGA-02-0003,0,0.99998915,1.0867886E-05,0,0.99996686,3.308471E-05,4,7.377526E-05,0.00074111245,0.99918514
 TCGA-GBM,TCGA-02-0006,0,0.42321962,0.5767803,0,0.68791837,0.31208166,4,0.60229343,0.26596427,0.13174225
 TCGA-GBM,TCGA-02-0009,0,0.99306935,0.006930672,0,0.9906961,0.009303949,4,0.056565534,0.10282235,0.8406121
