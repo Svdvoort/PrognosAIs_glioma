@@ -2,6 +2,12 @@
 
 This repository contains the code and trained models required for the running of the PrognosAIs model trained for the prediction of the IDH mutation status, 1p/19q co-deletion status, and grade of glioma based on pre-operative MRI scans. The model also automatically segments the tumor.
 
+The model and work that went into the development of the model are described in the paper:
+
+Sebastian R van der Voort, Fatih Incekara, Maarten M J Wijnenga, Georgios Kapsas, Renske Gahrmann, Joost W Schouten, Rishi Nandoe Tewarie, Geert J Lycklama, Philip C De Witt Hamer, Roelant S Eijgelaar, Pim J French, Hendrikus J Dubbink, Arnaud J P E Vincent, Wiro J Niessen, Martin J van den Bent, Marion Smits, Stefan Klein, Combined molecular subtyping, grading, and segmentation of glioma using multi-task deep learning, Neuro-Oncology, 2022;, noac166, [https://doi.org/10.1093/neuonc/noac166](https://doi.org/10.1093/neuonc/noac166).
+
+Please cite this paper when you use this code.
+
 ## Running the model 
 
 
