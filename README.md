@@ -63,5 +63,12 @@ tar -xzvf prognosais_model.tar.gz
 
 The model is now stored, in [TensorFlow SavedModel format](https://www.tensorflow.org/guide/saved_model), in `the prognosais_model` folder.
 
+# FAQ
+
+**I get en error like: `/run_pipeline.sh: line 51: 276 Illegal instruction` when running the docker**
+If you are trying to run the docker on a newer Mac with an M1/M2/M3 etc. chip this might be the cause. See [this issue](https://github.com/Svdvoort/PrognosAIs_glioma/issues/4). The best approach is to run the model locally instead of using Docker in this case. If you run into this error but are not running on a Mac, feel free to open a new issue. 
+
+
+
 
 
