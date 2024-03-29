@@ -61,13 +61,25 @@ cd Trained_models
 tar -xzvf prognosais_model.tar.gz
 ```
 
-The model is now stored, in [TensorFlow SavedModel format](https://www.tensorflow.org/guide/saved_model), in `the prognosais_model` folder.
+The model is now stored,in [TensorFlow SavedModel format](https://www.tensorflow.org/guide/saved_model), in `the prognosais_model` folder.
 
 # FAQ
 
 **I get en error like: `/run_pipeline.sh: line 51: 276 Illegal instruction` when running the docker**
 
 If you are trying to run the docker on a newer Mac with an M1/M2/M3 etc. chip this might be the cause. See [this issue](https://github.com/Svdvoort/PrognosAIs_glioma/issues/4). The best approach is to run the model locally instead of using Docker in this case. If you run into this error but are not running on a Mac, feel free to open a new issue. 
+
+**How should I interpret the file with the genetic predictions?**
+
+- Prediction_IDH_class_0 is the prediction score for IDH wildtype
+- Prediction_IDH_class_1 is the prediction score for IDH mutated
+- Prediction_1p19q_class_0 is the prediction score for 1p19q not-co-deleted
+- Prediction_1p19q_class_1 is the prediction score for 1p19q co-deleted
+- Prediction_grade_class_0 is the prediction score for grade II
+- Prediction_grade_class_1 is the prediction score for grade III
+- Prediction_grade_class_3 is the prediction score for grade IV
+
+
 
 
 
