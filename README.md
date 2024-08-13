@@ -65,6 +65,51 @@ The model is now stored,in [TensorFlow SavedModel format](https://www.tensorflow
 
 # FAQ
 
+**I get an error like: `mv: cannot stat '/output/Predictions/Results': No such file or directory`**
+The end of the log probably looks something like this: 
+
+```text
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3080, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 70, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 101, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 1625, in pandas._libs.hashtable.Int64HashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 1632, in pandas._libs.hashtable.Int64HashTable.get_item
+KeyError: 0
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/get_predictions.py", line 33, in <module>
+    pipeline.start_local_pipeline()
+  File "/usr/local/lib/python3.7/site-packages/PrognosAIs/Pipeline.py", line 65, in start_local_pipeline
+    self.input_folder, self.output_folder, self.preprocessing_config
+  File "/usr/local/lib/python3.7/site-packages/PrognosAIs/Preprocessing/Preprocessors.py", line 999, in __init__
+    make_one_hot=self.labeling_config.make_one_hot,
+  File "/usr/local/lib/python3.7/site-packages/PrognosAIs/IO/LabelParser.py", line 45, in __init__
+    self.encode_labels_one_hot()
+  File "/usr/local/lib/python3.7/site-packages/PrognosAIs/IO/LabelParser.py", line 180, in encode_labels_one_hot
+    category_type = self.get_label_category_type(i_label_category)
+  File "/usr/local/lib/python3.7/site-packages/PrognosAIs/IO/LabelParser.py", line 147, in get_label_category_type
+    category_label_type = type(self.label_data[category_name][0])
+  File "/usr/local/lib/python3.7/site-packages/pandas/core/series.py", line 853, in __getitem__
+    return self._get_value(key)
+  File "/usr/local/lib/python3.7/site-packages/pandas/core/series.py", line 961, in _get_value
+    loc = self.index.get_loc(label)
+  File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3082, in get_loc
+    raise KeyError(key) from err
+KeyError: 0
+mv: cannot stat '/output/Predictions/Results': No such file or directory
+rm: cannot remove '/output/Predictions/Samples': No such file or directory
+rm: cannot remove '/output/Predictions/config.yml': No such file or directory
+```
+
+If this is the case, you should check the names of your patient folders. Due to a bug in the code, patient folder names should be strings, otherwise this error can occur. 
+Concretely this means that a patient folder should always have a letter in its name. 
+For example do not create a patient folder with the name "808310", but then rename it to "P808310". 
+The docker should now run without problems, if not please open an issue. 
+
 **I get en error like: `/run_pipeline.sh: line 51: 276 Illegal instruction` when running the docker**
 
 If you are trying to run the docker on a newer Mac with an M1/M2/M3 etc. chip this might be the cause. See [this issue](https://github.com/Svdvoort/PrognosAIs_glioma/issues/4). The best approach is to run the model locally instead of using Docker in this case. If you run into this error but are not running on a Mac, feel free to open a new issue. 
